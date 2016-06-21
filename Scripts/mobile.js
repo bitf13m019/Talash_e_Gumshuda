@@ -3,7 +3,7 @@ window.onload = function(){
 
 	var mobile = document.createElement("span");
 	mobile.setAttribute("id","mobile-navigation");
-	getNavi.parentNode.insertBefore(mobile,getNavi);
+	//getNavi.parentNode.insertBefore(mobile,getNavi);
 
 	document.getElementById('mobile-navigation').onclick = function(){
 		var a = getNavi.getAttribute('style');
