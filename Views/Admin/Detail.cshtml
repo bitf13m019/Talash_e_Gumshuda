@@ -1,0 +1,108 @@
+﻿@model MVC_Project.Models.Details
+@{ViewBag.Title = "All Details"; }
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/mobile.css" media="screen and (max-width : 568px)">
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/mobile.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js"></script>
+<body style="background-image:url('/images/grid.jpg');background-repeat:repeat;">
+    <div id="header">
+        <div id="body">
+            <img src="~/images/jj.png" alt="" style="width:80%;height:20%;" />
+        </div>
+        <ul id="navigation">
+            <li>
+                @Html.ActionLink("Find Person", "Admin_index", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Find Family", "FindFamily", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Update Profile", "update_profile", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("View All Users", "view_All_users", "Admin")
+            </li>
+        </ul>
+    </div>
+    <div id="body">
+        <h1><span>Missing Person's</span></h1>
+    </div>
+    <br><br>
+    <div style="width:auto;height:auto;">
+        <img id="img" src="@Url.Content(Model.findP.imageSrc)" alt="" style="width:30%;height:30%;border:2px solid black">
+    </div>
+    <div style="width:auto;height:auto">
+        @{
+            Session["id"] = Model.findP.Id;
+            String name = Model.findP.name;
+            String color = Model.findP.color;
+            String Age = Model.findP.age;
+            String ufName = Model.u.fname;
+            String ulName = Model.u.lname;
+            String address = Model.u.address;
+            String ContactNo = Model.u.phoneNo;
+        }
+        <form action="/Admin/updateRecordP" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <label style="float:left"><b>Name:</b></label><br>
+                        @Html.TextBox("name", name, new { id = "input" })
+                    </td>
+                    <td>
+                        <label style="float:left"><b>Age:</b></label><br>
+                        @Html.TextBox("age", Age, new { id = "input" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="float:left"><b>Color:</b></label><br><br>
+                        @Html.TextBox("color", color, new { id = "input" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="update_button" id="send" value="Update" />
+                    </td>
+                </tr>
+                </table>
+        </form>
+        <form action="/Admin/deleteRecordP" method="post">
+
+            <table>
+                <tr>
+                    <td>
+                        <h2 style="font-size:30px;color:#ff5454"><b>Person who Find:</b></h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="float:left"><b>First Name:</b></label><br>
+                        @Html.TextBox("fname", ufName, new { id = "input" })
+                    </td>
+                    <td>
+                        <label style="float:left"><b>Last Name:</b></label><br>
+                        @Html.TextBox("lname", ulName, new { id = "input" })
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label style="float:left"><b>Address:</b></label><br><br>
+                        @Html.TextBox("address", address, new { id = "input" })
+                    </td>
+                    <td>
+                        <label style="float:left"><b>Contact No:</b></label><br><br>
+                        @Html.TextBox("phoneNo", ContactNo, new { id = "input" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                            <input type="submit" name="delete_button" id="send" value="Delete" />
+                    </td>
+                </tr>
+            </table>
+            </form>
+</div>
+</body>

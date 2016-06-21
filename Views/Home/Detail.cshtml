@@ -1,0 +1,75 @@
+﻿@{ ViewBag.Title = "Talash-E-Gumshuda";}
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/mobile.css" media="screen and (max-width : 568px)">
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/mobile.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js"></script>
+<body style="background-image:url('/images/grid.jpg');background-repeat:repeat;">
+    <div id="header">
+        <div id="body">
+            <img src="~/images/jj.png" alt="" style="width:80%;height:20%;" />
+        </div>
+        <ul id="navigation">
+            @{
+                if(Session["type"].ToString() == "Admin"){
+                    <li>
+                    @Html.ActionLink("Find Person", "Admin_index", "Admin")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Find Family", "FindFamily", "Admin")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Update Profile", "update_profile", "Admin")
+                    </li>
+                    <li>
+                        @Html.ActionLink("View All Users", "view_All_users", "Admin")
+                    </li>
+                }
+                else { 
+                    <li>
+                        @Html.ActionLink("Home", "index", "Home")
+                    </li>
+                    
+                        String link = ViewBag.link;
+                        String link1 = ViewBag.link1;
+                    
+                    <li>
+                        @Html.ActionLink("Find Person", link, "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Find Family", link1, "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Login", "Login", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("SignUp", "SignUp", "Home")
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div id="body">
+        <h1><span>Missing Person's</span></h1>
+    </div>
+    <br><br>
+    <div style="width:auto;height:auto;">
+        <img id="img" src="@Url.Content(Model.findP.imageSrc)" alt="" style="width:30%;height:30%;border:2px solid black">
+    </div>
+    <div style="width:auto;height:auto">
+        <h3><b>Name:</b></h3>
+        <h3>@Model.findP.name</h3><br>
+        <h3><b>Age:</b></h3>
+        <h3>@Model.findP.age</h3><br>
+        <h3><b>Color:</b></h3>
+        <h3>@Model.findP.color</h3>
+        <br>
+        <h2 style="font-size:30px;color:#ff5454"><b>Person who Find:</b></h2><br>
+        <h3><b>Name:</b></h3>
+        <h3>@Model.u.fname @Model.u.lname</h3><br>
+        <h3><b>City:</b></h3>
+        <h3>@Model.u.address</h3><br>
+        <h3><b>Contact No:</b></h3>
+        <h3>@Model.u.phoneNo</h3>
+    </div>
+</body>

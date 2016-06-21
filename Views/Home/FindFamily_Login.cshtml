@@ -1,0 +1,169 @@
+﻿@{ ViewBag.Title = "Find Family Login";}
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/mobile.css" media="screen and (max-width : 568px)">
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/mobile.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#send").click(function () {
+                $("#div").slideToggle("slow");
+                $("#div").show();
+            });
+            
+            
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#dateTime").datetimepicker();
+        });
+    </script>
+
+<body style="background-image:url('/images/grid.jpg');background-repeat:repeat;background-color:black;">
+    <div id="header">
+        <div id="body">
+            <img src="~/images/jj.png" alt="" style="width:80%;height:20%;" />
+        </div>
+        <ul id="navigation">
+            <li>
+                @Html.ActionLink("Home", "index", "Home")
+            </li>
+            @{
+                String link = ViewBag.link;
+                String link1 = ViewBag.link1;
+            }
+            <li>
+                @Html.ActionLink("Find Person", link, "Home")
+            </li>
+            <li>
+                @Html.ActionLink("Find Family", link1, "Home")
+            </li>
+            <li>
+                @Html.ActionLink("Login", "Login", "Home")
+            </li>
+            <li>
+                @Html.ActionLink("SignUp", "SignUp", "Home")
+            </li>
+        </ul>
+    </div>
+    <div id="body">
+        <img src="~/images/family.jpg" alt="" style="width:35%;height:25%;"><br><br>
+        <center>
+            <input type="submit" name="addData" id="send" value="Add Person" style="float:left;margin-left:10%;" />
+        </center>
+        <script type="text/javascript">
+            function show(input) {
+                if (input.files && input.files[0]) {
+                    var filerdr = new FileReader();
+                    filerdr.onload = function (e) {
+                        $('#img').attr('src', e.target.result);
+                    }
+                    filerdr.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+        <center>
+        <div id="div" style="width:50%;height:50%;display:none;">
+            @using(Html.BeginForm("Add_Family", "Home"
+                  , FormMethod.Post, new { enctype = "multipart/form-data" })){
+            <div style="width:auto;height:auto;">
+                <img id="img" src="~/images/mustache1.jpg" alt="" style="width:30%;height:30%;border:2px solid black" />
+
+                <input type="file" id="imageSrc" name="file" onchange="show(this)" />
+            </div>
+            <div style="width:50%;height:100%">
+                <table>
+                    <tr>
+                        <td>
+                            @Html.TextBox("name", null, new { placeHolder = "Enter Name" })
+                            @Html.TextBox("age", null, new { placeHolder = "Enter Age" })
+                            @Html.TextBox("color", null, new { placeHolder = "Enter Color" })
+                            @Html.TextBox("placeWM", null, new { placeHolder = "Enter Place" })
+                            <select name="gender" style="width:100%;height:5%;background-color:#333;color:#ffffff">
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            </select><br><br>
+                            @Html.TextArea("detail", null, new { placeHolder = "Enter Detail" })
+                        </td>
+                    </tr>
+                </table>
+                <center>
+                    <br>
+                    <input type="submit" style="width:20%;" id="btn" name="enter_btn" value="Enter" />
+                </center>
+
+            </div>
+        }
+            </div>
+            <form action="/Home/FindFamily_Login" method="post">
+                <input type="datetime-local" id="searchbytime" name="searchbytime" />
+                <input type="submit" name="searchByTime" id="search" value="Search By Time" style="float:right" />
+            </form>
+            </center>
+        <br>
+        <center>
+        <table>
+
+            @{bool flag = false;
+            int count = Model.Count;
+            if (Model.Count % 2 == 0)
+            {
+                flag = true;
+            }
+            else
+            {
+                count--;
+            }
+            for (int i = 0; i < count; i = i + 2)
+            {
+                <tr>
+                    <td id="gallery">
+                        <a href="~/Home/DetailF?src=@Model[i].imageSrc">
+                            <img id="img" src="@Url.Content(Model[i].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                        </a><br>
+
+                        <label><b>Name:</b></label>
+                        <label id="userName">@Model[i].name</label><br>
+                        <label><b>Age:</b></label>
+                        <label>@Model[i].age</label><br>
+                        <label><b>Color:</b></label>
+                        <label>@Model[i].color</label>
+
+                    </td>
+                    <td id="gallery">
+                        <a href="~/Home/DetailF?src=@Model[i+1].imageSrc">
+                            <img id="img" src="@Url.Content(Model[i + 1].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                        </a><br>
+                        <label><b>Name:</b></label>
+                        <label id="userName">@Model[i + 1].name</label><br>
+                        <label><b>Age:</b></label>
+                        <label>@Model[i + 1].age</label><br>
+                        <label><b>Color:</b></label>
+                        <label>@Model[i + 1].color</label>
+                    </td>
+                </tr>
+            }
+            if (flag == false)
+            {
+                <tr>
+                    <td id="gallery">
+                        <a href="~/Home/DetailF?src=@Model[count].imageSrc">
+                            <img id="img" src="@Url.Content(Model[count].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                        </a><br>
+                        <label><b>Name:</b></label>
+                        <label id="userName">@Model[count].name</label><br>
+                        <label><b>Age:</b></label>
+                        <label>@Model[count].age</label><br>
+                        <label><b>Color:</b></label>
+                        <label>@Model[count].color</label>
+                    </td>
+                </tr>
+
+            }
+            }
+        </table>
+            </center>
+    </div>
+
+</body>

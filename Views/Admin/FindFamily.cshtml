@@ -1,0 +1,91 @@
+﻿@{ ViewBag.Title = "Family record";}
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/mobile.css" media="screen and (max-width : 568px)">
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/mobile.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js"></script>
+<body style="background-image:url('/images/grid.jpg');background-repeat:repeat;">
+    <div id="header">
+        <div id="body">
+            <img src="~/images/jj.png" alt="" style="width:80%;height:20%;" />
+        </div>
+        <ul id="navigation">
+            <li>
+                @Html.ActionLink("Find Person", "Admin_index", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Find Family", "FindFamily", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Update Profile", "update_profile", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("View All Users", "view_All_users", "Admin")
+            </li>
+        </ul>
+    </div>
+    <div id="body">
+        <h1><span>Find Family</span></h1>
+        <center>
+            <table>
+                @{bool flag = false;
+                int count = Model.Count;
+                if (Model.Count % 2 == 0)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    count--;
+                }
+                for (int i = 0; i < count; i = i + 2)
+                {
+                    <tr>
+                        <td id="gallery">
+                            <a href="~/Admin/DetailF?src=@Model[i].imageSrc">
+                                <img id="img" src="@Url.Content(Model[i].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                            </a>
+
+                            <label><b>Name:</b></label>
+                            <label>@Model[i].name</label><br>
+                            <label><b>Age:</b></label>
+                            <label>@Model[i].age</label><br>
+                            <label><b>Color:</b></label>
+                            <label>@Model[i].color</label>
+
+                        </td>
+                        <td id="gallery">
+                            <a href="~/Admin/DetailF?src=@Model[i+1].imageSrc">
+                                <img id="img" src="@Url.Content(Model[i + 1].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                            </a>
+                            <label><b>Name:</b></label>
+                            <label>@Model[i + 1].name</label><br>
+                            <label><b>Age:</b></label>
+                            <label>@Model[i + 1].age</label><br>
+                            <label><b>Color:</b></label>
+                            <label>@Model[i + 1].color</label>
+                        </td>
+                    </tr>
+                }
+                if (flag == false)
+                {
+                    <tr>
+                        <td id="gallery">
+                            <a href="~/Admin/DetailF?src=@Model[count].imageSrc">
+                                <img id="img" src="@Url.Content(Model[count].imageSrc)" alt="" style="width:300px;height:300px;border:2px solid black">
+                            </a>
+                            <label><b>Name:</b></label>
+                            <label>@Model[count].name</label><br>
+                            <label><b>Age:</b></label>
+                            <label>@Model[count].age</label><br>
+                            <label><b>Color:</b></label>
+                            <label>@Model[count].color</label>
+                        </td>
+                    </tr>
+
+                }
+                }
+            </table>
+        </center>
+    </div>
+</body>

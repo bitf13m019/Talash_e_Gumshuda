@@ -1,0 +1,156 @@
+﻿@{ViewBag.Title = "Update Profile";}
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/mobile.css" media="screen and (max-width : 568px)">
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/mobile.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js"></script>
+
+
+    <script>
+        function validate() {
+            var flag = true;
+            var sem = document.myForm.cnic.value;
+            var e = document.myForm.email.value;
+            var e1 = document.myForm.email1.value;
+            var p = document.myForm.pass.value;
+            var p1 = document.myForm.pass1.value;
+            var m = document.myForm.mobile.value;
+
+            if (m.length < 11 || p.length > 13) {
+                alert("Please provide Valid Phone Number!");
+                flag = false;
+            }
+
+            if (p.length < 5 || p.length > 49) {
+                alert("Password Length is not Valid!");
+                flag = false;
+            }
+            if (p1.length < 5 || p1.length > 49) {
+                alert("Password Length is not Valid!");
+                flag = false;
+            }
+            if (e != e1) {
+                alert("Your Provided E-mail does not Match!");
+                flag = false;
+            }
+            if (p != p1) {
+                alert("Your Provided Password does not Match!");
+                flag = false;
+            }
+            return flag;
+        }
+    </script>
+
+    <style>
+        #body {
+            margin: 0;
+            padding: 0 0 2px;
+            text-align: center;
+        }
+
+            #body h1 {
+                color: #fff;
+                display: inline;
+                font-family: poller_oneregular;
+                font-size: 25px;
+                font-weight: normal;
+                margin: 0;
+                padding: 0;
+            }
+
+                #body h1 span {
+                    background: #333;
+                    display: inline-block;
+                    padding: 5px 5px 5px;
+                }
+
+            #body > div {
+                margin: 0;
+                padding: 0;
+                width: 600px;
+            }
+
+            #body form {
+                margin: 0 auto;
+                padding: 7px 0 0;
+                width: 620px;
+            }
+
+                #body form input {
+                    border: 2px solid #333;
+                    color: #ffffff;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 15px;
+                    font-weight: normal;
+                    margin: 0 0 7px;
+                    padding: 5px 2px;
+                    text-align: center;
+                    width: 240px;
+                    background-color: #2d3930;
+                }
+
+                #body form textarea {
+                    height: 75px;
+                    overflow: auto;
+                    resize: none;
+                }
+
+                #body form #send {
+                    background: #333;
+                    color: #fff;
+                    font-family: "Arial Black", Gadget, sans-serif;
+                    font-size: 15px;
+                    font-weight: normal;
+                    display: inline-block;
+                    padding: 10px 10px;
+                    width: auto;
+                }
+
+                    #body form #send:hover {
+                        background: #fff;
+                        color: #252525;
+                        cursor: pointer;
+                    }
+    </style>
+<body style="background-image:url('/images/grid.jpg');background-repeat:repeat;">
+    <div id="header">
+        <div id="body">
+            <img src="~/images/jj.png" alt="" style="width:80%;height:20%;" />
+        </div>
+        <ul id="navigation">
+            <li>
+                @Html.ActionLink("Find Person", "Admin_index", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Find Family", "FindFamily", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("Update Profile", "update_profile", "Admin")
+            </li>
+            <li>
+                @Html.ActionLink("View All Users", "view_All_users", "Admin")
+            </li>
+        </ul>
+    </div>
+    <div id="body">
+        <h1><span>Update Profile</span></h1>
+        <form action="/Admin/update" name="myForm" onsubmit="return(validate());">
+            <br><br>
+            @{
+                String firstName = Model.fname;
+                String lastName = Model.lname;
+                String Password = Model.password;
+                String UserName = Model.userName;
+            }
+            <center>
+                @Html.TextBox("fname", firstName, new {id = "input" , placeHolder = "Admin FNAme" })
+                @Html.TextBox("lname", lastName, new { id = "input", placeHolder = "Admin LNAme" })
+                @Html.TextBox("userName", UserName, new { id = "input", placeHolder = "Admin User Name" })
+                @Html.TextBox("password", Password, new { id = "input", placeHolder = "Admin Password" })
+            </center>
+            <br>
+            <input type="submit" name="submit" id="send" value="Update">
+        </form>
+    </div>
+
+</body>
