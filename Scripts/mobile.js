@@ -5,16 +5,16 @@ window.onload = function(){
 	mobile.setAttribute("id","mobile-navigation");
 	//getNavi.parentNode.insertBefore(mobile,getNavi);
 
-	document.getElementById('mobile-navigation').onclick = function(){
-		var a = getNavi.getAttribute('style');
-		if(a){
-			getNavi.removeAttribute('style');
-			document.getElementById('mobile-navigation').style.backgroundImage='url(images/mobile-menu.png)';
-		} else {
-			getNavi.style.display='block';
-			document.getElementById('mobile-navigation').style.backgroundImage='url(images/mobile-close.png)';
-		}
-	};
+	//document.getElementById('mobile-navigation').onclick = function(){
+	//	var a = getNavi.getAttribute('style');
+	//	if(a){
+	//		getNavi.removeAttribute('style');
+	//		document.getElementById('mobile-navigation').style.backgroundImage='url(images/mobile-menu.png)';
+	//	} else {
+	//		getNavi.style.display='block';
+	//		document.getElementById('mobile-navigation').style.backgroundImage='url(images/mobile-close.png)';
+	//	}
+	//};
 	var getElm = getNavi.getElementsByTagName("LI");
 	for(var i=0;i<getElm.length;i++){
 		if(getElm[i].children.length>1){
